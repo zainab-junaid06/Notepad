@@ -1,0 +1,31 @@
+let notesContainer = document.querySelector(".container");
+let createBtn = document.querySelector(".createBtn");
+
+function updateStorage(){
+    localStorage.setItem("notes", notesContainer.innerHTML);
+}
+
+createBtn.addEventListener("click", () => {
+    let inputBox = document.createElement("p");
+    let img = document.createElement("img");
+    inputBox.className = "input-box";
+    inputBox.setAttribute("contenteditable", "true");
+    img.src = "https://cdn-icons-png.flaticon.com/512/70/70757.png"; 
+    img.height = 35;
+    inputBox.appendChild(img);
+    notesContainer.appendChild(inputBox);
+});
+
+
+notesContainer.addEventListener("click", function(e) {
+    if (e.target.tagName === "IMG") {
+        e.target.parentElement.remove();
+        updateStorage();
+    }
+});
+
+notesContainer.addEventListener("input", function(e) {
+    if (e.target.classList.contains("input-box")) {
+        updateStorage();
+    }
+});
